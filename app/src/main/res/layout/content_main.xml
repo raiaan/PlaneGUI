@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:showIn="@layout/activity_main">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rollAndPitch"
+        android:background="@color/black"
+        android:layout_below="@+id/yaw"
+        android:layout_marginTop="5dp"
+        android:layout_above="@+id/throttle">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/circle"
+            android:id="@+id/point"/>
+    </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Yaw"
+            android:id="@+id/yawText"/>
+        <SeekBar
+            android:id="@+id/yaw"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/yawText"
+            android:max="1000"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="throttle"
+            android:layout_above="@+id/start"
+            android:id="@+id/throttleText"/>
+        <SeekBar
+            android:id="@+id/throttle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/start"
+            android:max="1000"
+            android:layout_toRightOf="@+id/throttleText"
+            />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="start"
+        android:id="@+id/start"
+        />
+
+
+</RelativeLayout>
