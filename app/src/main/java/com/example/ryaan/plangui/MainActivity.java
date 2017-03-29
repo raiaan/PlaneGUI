@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity {
     Button start;
     SeekBar Sthrottle, Syaw;
     RelativeLayout relativeLayout;
+    Boolean touched;
+    ImageView img;
+    int x;
+    int y;
     @Override
     protected void onStart() {
         super.onStart();
@@ -47,23 +51,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        img=(ImageView)findViewById(R.id.point);
         relativeLayout=(RelativeLayout)findViewById(R.id.rollAndPitch);
+        x= relativeLayout.getWidth();
+        y=relativeLayout.getHeight();
+        Log.v("try",relativeLayout.getMinimumWidth()+">>"+relativeLayout.getWidth());
         relativeLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                int x= relativeLayout.getWidth();
-                int y=relativeLayout.getHeight();
+                Boolean atBoundary=event.getX()>=relativeLayout.getMinimumWidth()&&event.getX()<=relativeLayout.getWidth()-5
+                        &&event.getY()>=relativeLayout.getMinimumHeight()&&event.getY()<=relativeLayout.getHeight()-5;
+                    switch (event.getAction()){
+                        case MotionEvent.ACTION_MOVE:
+                            if(atBoundary)
+                            {
+                                img.setX(event.getX());
+                                img.setY(event.getY());
+                                roll=1000+Math.floor(1000*event.getX()/x);
+                                pitch=2000-Math.floor(1000*event.getY()/y);
+                                //Log.v("x,y",""+roll+">>>"+pitch);
+                                serial();
+                            }
+                            break;
+                    }
 
-                switch (event.getAction()){
-                    case MotionEvent.ACTION_MOVE:
-                        ImageView img=(ImageView)findViewById(R.id.point);
-                        img.setX(event.getX());
-                        img.setY(event.getY());
-                        roll=1000+Math.floor(1000*event.getX()/x);
-                        pitch=2000-Math.floor(1000*event.getY()/y);
-                        Log.v("x,y",""+roll+">>>"+pitch);
-                        serial();
-                }
                 return true;
             }
         });
@@ -115,8 +126,6 @@ public class MainActivity extends AppCompatActivity {
                 serial();
             }
         });
-
-
     }
     public void serial(){
         // This snippet will open the first usb device connected, excluding usb root hubs
