@@ -53,12 +53,11 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         img=(ImageView)findViewById(R.id.point);
         relativeLayout=(RelativeLayout)findViewById(R.id.rollAndPitch);
-        x= relativeLayout.getWidth();
-        y=relativeLayout.getHeight();
-        Log.v("try",relativeLayout.getMinimumWidth()+">>"+relativeLayout.getWidth());
         relativeLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                x= relativeLayout.getWidth();
+                y= relativeLayout.getHeight();
                 Boolean atBoundary=event.getX()>=relativeLayout.getMinimumWidth()&&event.getX()<=relativeLayout.getWidth()-5
                         &&event.getY()>=relativeLayout.getMinimumHeight()&&event.getY()<=relativeLayout.getHeight()-5;
                     switch (event.getAction()){
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                                 img.setY(event.getY());
                                 roll=1000+Math.floor(1000*event.getX()/x);
                                 pitch=2000-Math.floor(1000*event.getY()/y);
-                                //Log.v("x,y",""+roll+">>>"+pitch);
+                                Log.v("x,y",""+roll+">>>"+pitch);
                                 serial();
                             }
                             break;
