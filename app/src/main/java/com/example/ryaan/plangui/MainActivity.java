@@ -30,10 +30,11 @@ public class MainActivity extends AppCompatActivity {
     UsbDevice device;
     UsbDeviceConnection connection;
     Button start;
-    SeekBar Sthrottle, Syaw;
-    RelativeLayout relativeLayout;
-    Boolean touched;
+    SeekBar Syaw;
+    RelativeLayout relativeLayout,throttleContainer;
     ImageView img;
+    double val;
+    View th;
     int x;
     int y;
     @Override
@@ -51,7 +52,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        th=(View)findViewById(R.id.throttleContent);
         img=(ImageView)findViewById(R.id.point);
+        throttleContainer=(RelativeLayout)findViewById(R.id.throttleContainer);
+
+
+        throttleContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction()==MotionEvent.ACTION_MOVE){
+                    if(event.getY()<=throttleContainer.getBottom()&&event.getY()>=throttleContainer.getTop())
+                    {
+                        th.setTop((int)event.getY());
+                        val=2000-Math.floor(1000*(event.getY()/throttleContainer.getBottom()));
+                        Log.v("test",""+val);
+                    }
+
+                }
+                return true;
+            }
+        });
         relativeLayout=(RelativeLayout)findViewById(R.id.rollAndPitch);
         relativeLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -75,25 +95,6 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 return true;
-            }
-        });
-        Sthrottle=(SeekBar)findViewById(R.id.throttle);
-        Sthrottle.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                throttle=1000+progress;
-                Log.v("th",""+throttle);
-                serial();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
 
