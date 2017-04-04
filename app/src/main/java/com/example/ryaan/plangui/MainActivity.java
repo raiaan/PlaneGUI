@@ -5,8 +5,6 @@ import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.felhr.usbserial.UsbSerialDevice;
 import com.felhr.usbserial.UsbSerialInterface;
@@ -30,11 +29,11 @@ public class MainActivity extends AppCompatActivity {
     UsbDevice device;
     UsbDeviceConnection connection;
     Button start;
-    SeekBar Syaw;
-    RelativeLayout relativeLayout,throttleContainer;
+    RelativeLayout relativeLayout,throttleContainer, yawContainer,rollAndPitch;
     ImageView img;
     double val;
-    View th;
+    View throttleContent,yawContent;
+    TextView yawValue,throttleValue,pitchTxt,rollTxt;
     int x;
     int y;
     @Override
@@ -52,23 +51,45 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        th=(View)findViewById(R.id.throttleContent);
+        throttleContent =(View)findViewById(R.id.throttleContent);
+        yawContent=(View)findViewById(R.id.yawContent);
+        yawContainer =(RelativeLayout)findViewById(R.id.YawContainer);
         img=(ImageView)findViewById(R.id.point);
+        yawValue=(TextView)findViewById(R.id.yawValue);
+        throttleValue=(TextView)findViewById(R.id.throttleText);
+        pitchTxt=(TextView)findViewById(R.id.pitch);
+        rollTxt=(TextView)findViewById(R.id.roll);
+
         throttleContainer=(RelativeLayout)findViewById(R.id.throttleContainer);
 
 
+        yawContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                val=1000+Math.round(1000*(event.getX()/yawContainer.getMeasuredWidth()));
+                if(val>=1000&&val<=2000)
+                {
+                    yawContent.setX((int)event.getX());
+                    yawValue.setText("Yaw"+"\n"+(int)val);
+                    yaw=val;
+                    serial();
+                }
+                return true;
+            }
+        });
         throttleContainer.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction()==MotionEvent.ACTION_MOVE){
-                    if(event.getY()<=throttleContainer.getBottom()&&event.getY()>=throttleContainer.getTop())
-                    {
-                        th.setTop((int)event.getY());
-                        val=2000-Math.floor(1000*(event.getY()/throttleContainer.getBottom()));
-                        Log.v("test",""+val);
-                    }
+                val=2000-Math.round(1000*(event.getY()/throttleContainer.getMeasuredHeight()));
+                if(val>=1000&&val<=2000)
+                {
+                    throttleContent.setY((int)event.getY());
+                    throttleValue.setText("Throttle:"+"\n"+(int)val);
+                    throttle=val;
+                    serial();
 
                 }
+
                 return true;
             }
         });
@@ -88,33 +109,15 @@ public class MainActivity extends AppCompatActivity {
                                 img.setY(event.getY());
                                 roll=1000+Math.floor(1000*event.getX()/x);
                                 pitch=2000-Math.floor(1000*event.getY()/y);
-                                Log.v("x,y",""+roll+">>>"+pitch);
+                                rollTxt.setText("Roll:"+(int)roll);
+                                pitchTxt.setText("Pitch:"+(int)pitch);
+                                //Log.v("x,y",""+roll+">>>"+pitch);
                                 serial();
                             }
                             break;
                     }
 
                 return true;
-            }
-        });
-
-        Syaw=(SeekBar)findViewById(R.id.yaw);
-        Syaw.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                yaw=1000+progress;
-                Log.v("yaw",""+yaw);
-                serial();
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
 

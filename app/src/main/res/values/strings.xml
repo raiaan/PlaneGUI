@@ -2,4 +2,6 @@
     <string name="app_name">PlanGui</string>
     <string name="action_settings">Settings</string>
     <string name="throttle">Throttle</string>
+    <string name="roll">Roll</string>
+    <string name="pitch">Pitch</string>
 </resources>
