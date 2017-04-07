@@ -1,6 +1,7 @@
 package com.example.ryaan.plangui;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 if(val>=1000&&val<=2000)
                 {
                     throttleContent.setY((int)event.getY());
-                    throttleValue.setText("Throttle:"+"\n"+(int)val);
+                    throttleValue.setText("Throttle\n"+(int)val);
                     throttle=val;
                     serial();
 
@@ -99,24 +100,18 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 x= relativeLayout.getWidth();
                 y= relativeLayout.getHeight();
-                Boolean atBoundary=event.getX()>=relativeLayout.getMinimumWidth()&&event.getX()<=relativeLayout.getWidth()-5
-                        &&event.getY()>=relativeLayout.getMinimumHeight()&&event.getY()<=relativeLayout.getHeight()-5;
-                    switch (event.getAction()){
-                        case MotionEvent.ACTION_MOVE:
-                            if(atBoundary)
-                            {
-                                img.setX(event.getX());
-                                img.setY(event.getY());
-                                roll=1000+Math.floor(1000*event.getX()/x);
-                                pitch=2000-Math.floor(1000*event.getY()/y);
-                                rollTxt.setText("Roll:"+(int)roll);
-                                pitchTxt.setText("Pitch:"+(int)pitch);
-                                //Log.v("x,y",""+roll+">>>"+pitch);
-                                serial();
-                            }
-                            break;
-                    }
-
+                roll=1000+Math.floor(1000*event.getX()/x);
+                pitch=2000-Math.floor(1000*event.getY()/y);
+                Boolean atBoundary=roll>=1000&&roll<=2000
+                        &&pitch>=1000&&pitch<=2000;
+                if(atBoundary)
+                {
+                    img.setX(event.getX());
+                    img.setY(event.getY());
+                    rollTxt.setText("Roll\n"+(int)roll);
+                    pitchTxt.setText("Pitch\n"+(int)pitch);
+                    serial();
+                }
                 return true;
             }
         });
@@ -125,7 +120,22 @@ public class MainActivity extends AppCompatActivity {
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                start.setEnabled(false);
+                img.setX(relativeLayout.getPivotX()-20);
+                img.setY(relativeLayout.getPivotY()-20);
+                rollTxt.setText("Roll\n1500");
+                pitchTxt.setText("Pitch\n1500");
+                start.setBackgroundColor(Color.GRAY);
+                start.setTextColor(Color.RED);
+                throttleValue.setText("Throttle\n1000");
+                yawValue.setText("Yaw\n1000");
+                start.setText("defualt values");
+                throttle=1000;
+                yaw=1000;
+                roll=1500;
+                pitch=1500;
+                throttleContent.setY(throttleContainer.getHeight()-10);
+                yawContent.setX(yawContainer.getLeft());
+//                start.setEnabled(false);
                 serial();
             }
         });
