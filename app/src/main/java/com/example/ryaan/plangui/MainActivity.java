@@ -106,8 +106,8 @@ public class MainActivity extends AppCompatActivity {
                         &&pitch>=1000&&pitch<=2000;
                 if(atBoundary)
                 {
-                    img.setX(event.getX());
-                    img.setY(event.getY());
+                    img.setX(event.getX()-20);
+                    img.setY(event.getY()-20);
                     rollTxt.setText("Roll\n"+(int)roll);
                     pitchTxt.setText("Pitch\n"+(int)pitch);
                     serial();
@@ -124,8 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 img.setY(relativeLayout.getPivotY()-20);
                 rollTxt.setText("Roll\n1500");
                 pitchTxt.setText("Pitch\n1500");
-                start.setBackgroundColor(Color.GRAY);
+                start.setBackgroundColor(Color.BLACK);
                 start.setTextColor(Color.RED);
+
                 throttleValue.setText("Throttle\n1000");
                 yawValue.setText("Yaw\n1000");
                 start.setText("defualt values");
@@ -135,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
                 pitch=1500;
                 throttleContent.setY(throttleContainer.getHeight()-10);
                 yawContent.setX(yawContainer.getLeft());
-//                start.setEnabled(false);
                 serial();
             }
         });

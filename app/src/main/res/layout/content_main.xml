@@ -24,23 +24,42 @@
                 android:orientation="horizontal"
                 android:layout_weight="1"
                 >
+
                 <RelativeLayout
+                    android:id="@+id/YawContainer"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
-                    android:id="@+id/YawContainer"
-                    android:background="#111">
+                    android:background="#000">
+
                     <View
+                        android:id="@+id/yawContent"
                         android:layout_width="5dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentBottom="true"
-                        android:background="#FF0000"
-                        android:id="@+id/yawContent"/>
-                    <TextView android:layout_width="wrap_content"
+                        android:background="#FF0000" />
+
+                    <TextView
+                        android:id="@+id/yawValue"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp"
                         android:text="Yaw"
                         android:textColor="@color/lightGrey"
-                        android:id="@+id/yawValue"/>
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="37dp"
+                        android:layout_toEndOf="@+id/yawValue"
+                        android:text="gravity=&quot;center&quot;" />
                 </RelativeLayout>
             </LinearLayout>
         </TableRow>
@@ -54,14 +73,15 @@
                 android:id="@+id/rollAndPitch"
                 android:background="@color/black"
                 android:layout_marginTop="5dp"
-                android:layout_marginRight="2dp"
                 android:layout_weight="9">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/lightGrey"
                     android:text="@string/roll"
-                    android:textSize="@dimen/roll_and_pitch_text_size"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="4dp"
+                    android:paddingLeft="4dp"
                     android:layout_centerInParent="true"
                     android:layout_above="@+id/xAxis"
                     android:id="@+id/roll"
@@ -79,7 +99,9 @@
                     android:layout_toRightOf="@+id/yAxis"
                     android:id="@+id/pitch"
                     android:layout_centerInParent="true"
-                    android:textSize="@dimen/roll_and_pitch_text_size"
+                    android:textSize="16sp"
+                    android:paddingTop="4sp"
+                    android:layout_marginLeft="4dp"
                     android:textColor="@color/lightGrey"
                     android:text="@string/pitch"/>
                 <View
@@ -92,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@drawable/circle"
+                    android:src="@drawable/c"
                     android:id="@+id/point"/>
             </RelativeLayout>
             <LinearLayout
@@ -105,7 +127,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_height="match_parent"
                     android:id="@+id/throttleContainer"
-                    android:background="#111"
+                    android:background="#000"
                     android:layout_marginLeft="5dp">
                 <View
                     android:layout_width="match_parent"
@@ -114,10 +136,15 @@
                     android:background="#FF0000"
                     android:id="@+id/throttleContent"/>
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/throttle"
-                        android:layout_alignParentBottom="true"
+                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:textColor="@color/lightGrey"
                         android:id="@+id/throttleText"/>
                 </RelativeLayout>
@@ -131,9 +158,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/red"
+        android:background="#000"
         android:layout_marginTop="5dp"
-        android:textColor="@color/lightGrey"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/red"
         android:textSize="@dimen/roll_and_pitch_text_size"
         android:text="start"
         android:id="@+id/start"
