@@ -2,7 +2,7 @@
 
 <h2>quade qupter android gui</h2>
 <p> <strong>single activity android app to control the motion of the quade qupter this gui consist of 4 parts that send it's value at the beginning of the activity or at changing one of this values </strong></p>
-<img src="readme_img/app.jpg"/>
+<img src="readme_img/app.jpg" width = "200"/>
 <h3>throttle slidebar : </h3>
 <p>it's enhanced slidebar to control throttle value , the default value is 1000 and the values range is from 1000 to 2000</p>
 <h3>Yaw slidebar : </h3>
