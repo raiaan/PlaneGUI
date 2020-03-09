@@ -6,8 +6,8 @@
 <h3>Yaw slidebar : </h3>
 <p>it's enhanced slidebar to control Yaw value , the default value is 1000 , and the values  range is from 1000 to 2000</p>
 <h3>pitch and roll area : </h3>
-<p>it's square to controll those two values , as X and Y axis  
-<strong>x axis : </strong>represent roll value which is begin form 1000, and end at 2000 , with 1500 default value .
+<p>it's square to controll those two values , as X and Y axis  <br/>
+<strong>x axis : </strong>represent roll value which is begin form 1000, and end at 2000 , with 1500 default value . <br/>
 <strong>y axis : </strong>represent pitch value which is also begin with 1000 , and end at 2000 with 1500 deualt value</p>
 <h3>start / default value button :</h3>
 <p>this button send default value of the four value to the serial port 
